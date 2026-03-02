@@ -14,8 +14,12 @@ import ru.iteco.fmhandroid.R;
 public class MainLocators {
 
     public static final Matcher<View> MAIN_HEADING =
-            allOf(
-                    withId(R.id.container_list_news_include_on_fragment_main),
-                    withText("Новости")
-            );
+            withId(R.id.news_title); //закголовок на главной Новости
+
+    public static final Matcher<View> LOG_OUT_IMAGE =
+            withId(R.id.authorization_image_button); // кнопка человечик выйти image
+
+    public static final Matcher<View> LOG_OUT_BUTTON =
+            allOf (
+                    withId(android.R.id.title), withText("Выйти")); // кнопка выйти после человечка
 }

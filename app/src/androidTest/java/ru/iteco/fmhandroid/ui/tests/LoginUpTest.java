@@ -1,26 +1,12 @@
 package ru.iteco.fmhandroid.ui.tests;
 
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
-import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
-import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withParent;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
+
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -37,23 +23,41 @@ import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.pages.AuthPage;
 
+
+
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class LoginUp {
+public class LoginUpTest {
 
     @Rule
     public ActivityScenarioRule<AppActivity> mActivityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
 
+    String login = "login2";
+    String password = "password2";
+    String login_2 = "ло-гин2";
 
-    @Test
-    public void successfulLoginTest() {
-        // Тест успешной авторизации
-        new AuthPage()
-                .login("login2", "password2")
-                .verifyOnMainPage();
+
+    @Before
+    public void successfulLoginTests() throws InterruptedException {
+        // Сделайте паузу и посмотрите иерархию
+        Thread.sleep(5000);
     }
 
+    @Test
+    public void successfulLoginTest() { //успешная автоматизация
+        new AuthPage()
+                .login(login, password)
+                .verifyOnMainPage()
+                .log_out()
+                .verifyAuthScreen();
+    }
+
+    @Test
+    public void unsuccessfulLoginTest_invalidPassword() {
+        new AuthPage()
+                .verifyAuthScreenError(login_2, password);
+    }
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
