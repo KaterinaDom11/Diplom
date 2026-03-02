@@ -36,6 +36,7 @@ public class LoginUpTest {
     String login = "login2";
     String password = "password2";
     String login_2 = "ло-гин2";
+    String password_2 = "пароль2";
 
 
     @Before
@@ -54,11 +55,33 @@ public class LoginUpTest {
     }
 
     @Test
-    public void unsuccessfulLoginTest_invalidPassword() {
+    public void unsuccessfulLoginTest_invalid_Login() { //невалидный логин
         new AuthPage()
                 .verifyAuthScreenError(login_2, password);
     }
 
+    @Test
+    public void unsuccessfulLoginTest_invalid_Password() { //невалидный пароль
+        new AuthPage()
+                .verifyAuthScreenError(login, password_2);
+    }
+
+    @Test
+    public void unsuccessfulLoginTest() { //не заполненные поля логина и пароля
+        new AuthPage()
+                .verifyAuthScreenError("", "");
+    }
+
+    @Test
+    public void unsuccessfulLoginTest_No_Login() { // без заполнения логина
+        new AuthPage()
+                .verifyAuthScreenError("", password);
+    }
+    @Test
+    public void unsuccessfulLoginTest_No_Password() { // без заполнения пароля
+        new AuthPage()
+                .verifyAuthScreenError(login, "");
+    }
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
