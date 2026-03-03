@@ -22,4 +22,12 @@ public class MainLocators {
     public static final Matcher<View> LOG_OUT_BUTTON =
             allOf (
                     withId(android.R.id.title), withText("Выйти")); // кнопка выйти после человечка
-}
+
+
+    public static final Matcher<View> NEW_INCLUDE =
+            withId(R.id.expand_material_button); // стрелка развророта новостей
+
+    public static final Matcher<View> ALL_NEWS =
+            allOf(withId(R.id.all_news_text_view), withText("ВСЕ НОВОСТИ"));
+
+    }

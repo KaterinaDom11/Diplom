@@ -54,7 +54,7 @@ public class AuthPage {
         return enterLogin(login)
                 .enterPassword(password)
                 .pressLoginButtonExpectingError()
-                .verifyAuthScreen ();
+                .verifyAuthScreen();
 
     }
 

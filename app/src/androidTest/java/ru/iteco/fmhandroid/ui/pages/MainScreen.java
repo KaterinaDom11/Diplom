@@ -8,12 +8,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import ru.iteco.fmhandroid.R;
+import ru.iteco.fmhandroid.ui.pages.NewsPage;
 import ru.iteco.fmhandroid.ui.locators.MainLocators;
 
 public class MainScreen {
 
-    public MainScreen verifyOnMainPage() {
+    public MainScreen verifyOnMainPage() { // проверка заголовка Новости на главной странице
         try {
             Thread.sleep(3000);  // ждём 3 секунды
         } catch (InterruptedException e) {
@@ -23,9 +23,9 @@ public class MainScreen {
         return this;
     }
 
-    public AuthPage log_out() {
+    public AuthPage log_out() { // выход из авторизации
         onView(MainLocators.LOG_OUT_IMAGE)
-                .check(matches(isDisplayed()))  // проверим, что кнопка видна
+                .check(matches(isDisplayed()))
                 .perform(click());
         onView(MainLocators.LOG_OUT_BUTTON)
                 .check(matches(isDisplayed()))
@@ -33,8 +33,23 @@ public class MainScreen {
         return new AuthPage();
     }
 
+    public MainScreen all_News() { // на главной странице развертываем все новости на стрелку
+        onView(MainLocators.NEW_INCLUDE)
+                .check(matches(isDisplayed()))
+                .perform(click())
+                .perform(click());
+        return this;
+    }
 
+    public NewsPage all_News_Head_News() {
+        onView(MainLocators.NEW_INCLUDE)
+                .check(matches(isDisplayed()))
+                .perform(click())
+                .perform(click());
+        onView(MainLocators.ALL_NEWS)
+                .perform(click());
 
-
+        return new NewsPage().verifyOnNewsPage();  // ← правильно!
+    }
 
 }
